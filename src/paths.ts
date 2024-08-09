@@ -10,6 +10,7 @@ export const paths = {
     settings: '/dashboard/settings',
     assetstransfer: '/dashboard/assetstransfer',
     assetreport : '/dashboard/assetreport',
+    assetreqreport : '/dashboard/assetreqreport',
   },
   errors: { notFound: '/errors/not-found' },
 } as const;

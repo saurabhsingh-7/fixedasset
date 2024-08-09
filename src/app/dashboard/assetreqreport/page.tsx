@@ -84,15 +84,48 @@ export default function InitialFilters() {
     },
   ];
 
-  const handleApprove = (id: number) => {
-    // Handle approve action
-    console.log(`Approved item with id: ${id}`);
-  };
+  const handleApprove = async (id: number) => {
+    try {
+        const response = await fetch('http://localhost:3000/api/approveasset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id, status: 'approved' }),
+        });
 
-  const handleReject = (id: number) => {
-    // Handle reject action
-    console.log(`Rejected item with id: ${id}`);
-  };
+        if (response.ok) {
+            console.log(`Approved item with id: ${id}`);
+            // Optionally, refresh the data grid or update the state to reflect the changes
+        } else {
+            console.error('Failed to approve the item');
+        }
+    } catch (error) {
+        console.error('Error approving the item:', error);
+    }
+};
+
+const handleReject = async (id: number) => {
+    try {
+        const response = await fetch('http://localhost:3000/api/approveasset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id, status: 'rejected' }),
+        });
+
+        if (response.ok) {
+            console.log(`Rejected item with id: ${id}`);
+            // Optionally, refresh the data grid or update the state to reflect the changes
+        } else {
+            console.error('Failed to reject the item');
+        }
+    } catch (error) {
+        console.error('Error rejecting the item:', error);
+    }
+};
+
 
   return (
     <div style={{ height: 400, width: '100%' }}>

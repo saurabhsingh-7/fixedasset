@@ -13,7 +13,7 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 // Define the types for form data
 interface FormData {
@@ -45,6 +45,7 @@ interface FormData {
 }
 
 const Page: React.FC = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     from: '',
     contact: '',
@@ -73,7 +74,7 @@ const Page: React.FC = () => {
     investmentOrder: '',
   });
 
-  // const router = useRouter();
+
 
   // Handle text field changes
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -97,11 +98,11 @@ const Page: React.FC = () => {
       body: JSON.stringify(formData),
     });
 
-    // if (response.ok) {
-    //   router.push('/submission-success');
-    // } else {
-    //   console.error('Form submission failed');
-    // }
+    if (response.ok) {
+      router.push('/dashboard/assetreqreport');
+    } else {
+      console.error('Form submission failed');
+    }
   };
 
   return (
