@@ -23,13 +23,13 @@ function noop(): void {
 }
 
 export interface Customer {
-  id: string;
-  avatar: string;
-  name: string;
+  id: string | any;
+  avatar: string | any;
+  name: string ;
   email: string;
-  address: { city: string; state: string; country: string; street: string };
-  phone: string;
-  createdAt: Date;
+  address: { city: string; state: string; country: string; street: string } | any;
+  phone: string | any;
+  createdAt: Date | any;
 }
 
 interface CustomersTableProps {

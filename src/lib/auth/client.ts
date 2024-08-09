@@ -1,7 +1,7 @@
 'use client';
 
 import type { User } from '@/types/user';
-
+import users from '../../users.json'
 function generateToken(): string {
   const arr = new Uint8Array(12);
   window.crypto.getRandomValues(arr);
@@ -54,12 +54,25 @@ class AuthClient {
   async signInWithPassword(params: SignInWithPasswordParams): Promise<{ error?: string }> {
     const { email, password } = params;
 
+    users.map((user) => {
+      if (email === user?.email && password === user.password) {
+        const name = user?.name;
+        localStorage.setItem('userinfo', JSON.stringify(user));
+      }
+    });
+    
+
     // Make API request
 
     // We do not handle the API, so we'll check if the credentials match with the hardcoded ones.
-    if (email !== 'sofia@devias.io' || password !== 'Secret1') {
-      return { error: 'Invalid credentials' };
-    }
+   
+
+    users.map((user)=>{
+      console.log("user email :" ,user.email);
+      if (email !== user?.email || password !== user.password) {
+        return { error: 'Invalid credentials' };
+      }
+    })
 
     const token = generateToken();
     localStorage.setItem('custom-auth-token', token);
@@ -90,7 +103,7 @@ class AuthClient {
 
   async signOut(): Promise<{ error?: string }> {
     localStorage.removeItem('custom-auth-token');
-
+    localStorage.removeItem('userinfo');
     return {};
   }
 }
